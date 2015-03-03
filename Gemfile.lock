@@ -49,6 +49,7 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    cancancan (1.10.1)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coderay (1.1.0)
@@ -233,6 +234,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
+  cancancan
   coffee-rails (~> 4.1.0)
   devise
   guard-rails
