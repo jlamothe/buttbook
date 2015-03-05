@@ -39,7 +39,7 @@
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
 
-guard 'rails' do
+guard 'rails', CLI: 'rails s -b0.0.0.0' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end
