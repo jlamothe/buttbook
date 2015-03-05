@@ -7,5 +7,5 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/precise32"
-  config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.provision :shell, path: "bin/bootstrap.sh"
 end
