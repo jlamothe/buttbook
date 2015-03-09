@@ -12,6 +12,6 @@ class Ability
 protected
 
   def user_permissions(user)
-    can [:read, :update], User, { id: user.id }
+    can [:read, :update, :delete], User, { id: user.id }
   end
 end

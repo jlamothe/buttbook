@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
         end
       end
 
-      [:read, :update].each do |action|
+      [:read, :update, :delete].each do |action|
         it "should be able to #{action} themselves" do
           expect(ability.can? action, user).to eq true
         end
