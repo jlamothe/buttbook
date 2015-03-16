@@ -1,17 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
-  describe "GET home" do
-    before do
-      get :home
-    end
+  render_views
+  let(:user) { create :user }
 
-    it 'should not throw an exception' do
-      expect { response }.to_not raise_error
-    end
+  [true, false].each do |signed_in|
+    context "when a user is #{ signed_in ? '' : 'not ' }signed in" do
+      describe "GET home" do
+        before do
+          sign_in user if signed_in
+          get :home
+        end
 
-    it 'should render the pages/home view' do
-      expect(response).to render_template('pages/home')
+        it 'should not throw an exception' do
+          expect { response }.to_not raise_error
+        end
+
+        it 'should render the pages/home view' do
+          expect(response).to render_template('pages/home')
+        end
+      end
     end
   end
 end
