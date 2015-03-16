@@ -1,59 +1,19 @@
-require 'rails_helper'
+require_relative '../support/resource.rb'
 
 RSpec.describe User, type: :model do
   subject { build :user }
-  let(:user) { create :user }
-  let(:ability) { Ability.new(user) }
+  include_examples 'a resource'
 
-  context "not signed in" do
-    it "shold not be able to create a user" do
-      expect(ability.can? :create, User).to eq false
+  context 'self-permissions' do
+    let(:ability) { Ability.new(subject) }
+
+    before do
+      subject.save!
     end
 
-    [:read, :update, :delete].each do |action|
-      it "should not be able to #{action} a user" do
-        expect(ability.can? action, subject).to eq false
-      end
-    end
-  end
-
-  context "signed in" do
-    context "as non-admin" do
-      before do
-        user.save!
-      end
-
-      it "should not be able to create a user" do
-        expect(ability.can? :create, User).to eq false
-      end
-
-      [:read, :update, :delete].each do |action|
-        it "should not be able to #{action} a user" do
-          expect(ability.can? action, subject).to eq false
-        end
-      end
-
-      [:read, :update, :delete].each do |action|
-        it "should be able to #{action} themselves" do
-          expect(ability.can? action, user).to eq true
-        end
-      end
-    end
-
-    context "as admin" do
-      before do
-        user.admin = true
-        user.save!
-      end
-
-      it "should be able to create a user" do
-        expect(ability.can? :create, User).to eq true
-      end
-
-      [:read, :update, :delete].each do |action|
-        it "should be able to #{action} a user" do
-          expect(ability.can? action, subject).to eq true
-        end
+    [:show, :edit, :update, :delete].each do |action|
+      it "should be able to #{ action } themselves" do
+        expect(ability.can? action, subject).to be true
       end
     end
   end
